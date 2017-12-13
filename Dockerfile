@@ -26,7 +26,7 @@ RUN dpkg --add-architecture i386 && \
 	 libstdc++6 \
 	 libstdc++6:i386
 
-ENV LGSM_DOCKER_VERSION 17.07.27
+ENV LGSM_DOCKER_VERSION 17.11.0
 
 ## lgsm.sh
 RUN wget -N --no-check-certificate https://gameservermanagers.com/dl/linuxgsm.sh
