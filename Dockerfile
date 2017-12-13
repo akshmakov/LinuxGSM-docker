@@ -1,8 +1,12 @@
 FROM debian:stable
 
+ENV LGSM_DOCKER_IMAGE LinuxGameServerManager
 LABEL maintainer="akshmakov@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
+
+## Ports Use can use -p port:port also
+EXPOSE 27015 7777 7778 27020
 
 ## Base System
 RUN dpkg --add-architecture i386 && \
@@ -24,7 +28,9 @@ RUN dpkg --add-architecture i386 && \
 	 tmux \
 	 lib32gcc1 \
 	 libstdc++6 \
-	 libstdc++6:i386
+	 libstdc++6:i386 \
+	 # ARK Dependancy
+	 lib32gcc1
 
 ENV LGSM_DOCKER_VERSION 17.11.0
 
@@ -36,7 +42,7 @@ RUN adduser --disabled-password --gecos "" lgsm && \
     chown lgsm:lgsm /linuxgsm.sh && \
     chmod +x /linuxgsm.sh && \
     cp /linuxgsm.sh /home/lgsm/linuxgsm
-    
+
 USER lgsm
 WORKDIR /home/lgsm
 
