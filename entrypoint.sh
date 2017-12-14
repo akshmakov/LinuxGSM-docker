@@ -11,7 +11,6 @@
 ## then we must keep a backup copy of the script on local drive
 if [ ! -e ~/linuxgsm ]; then
     echo "Initializing Linuxgsm User Script in New Volume"
-    cp /linuxgsm.sh ./linuxgsm
 fi
 
 # with no command, just spawn a running container suitable for exec's
@@ -30,7 +29,5 @@ else
     # but requires -it or at least -t
     tmux set -g status off && tmux attach 2> /dev/null
 fi
-
-
 
 exit 0
