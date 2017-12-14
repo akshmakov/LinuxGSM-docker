@@ -184,4 +184,4 @@ This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and se
 - Change permission to executable : chmod +x lgsm-build.sh && chmod +x lgsm.sh
 - Execute lgsm-build.sh
 - Edit some variable at the top of the lgsm.sh script
-- Execute lgsm.sh
+- Execute lgsm.sh all you need is in this script
