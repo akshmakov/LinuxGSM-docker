@@ -2,7 +2,6 @@ FROM debian:stable
 
 ENV LGSM_DOCKER_IMAGE LinuxGameServerManager
 LABEL maintainer="akshmakov@gmail.com"
-## Edit By Jkljkl1197
 
 #ENV DEBIAN_FRONTEND noninteractive
 
