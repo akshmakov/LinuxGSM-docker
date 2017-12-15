@@ -57,7 +57,6 @@ RUN dpkg --add-architecture i386 && \
 	 	cron \
          	procps \
 	 	locales \
-		## just to have a simple text editor.
 		nano \
 
 ENV LGSM_DOCKER_VERSION 17.11.0
