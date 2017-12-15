@@ -13,6 +13,7 @@ EXPOSE 27015 7777 7778 27020
 RUN dpkg --add-architecture i386 && \
 	apt-get update -y && \
 	apt-get install -y \
+		apt-utils \
 		binutils \
 		mailutils \
 		postfix \
@@ -58,7 +59,6 @@ RUN dpkg --add-architecture i386 && \
 	 	locales \
 		## just to have a simple text editor.
 		nano \
-		apt-utils
 
 ENV LGSM_DOCKER_VERSION 17.11.0
 
