@@ -96,7 +96,7 @@ then any extended image may be run as such
 ```
 # build the custom image
 $ docker build -tag local/linuxgsm:$SERVERNAME .
-# start the server
+sudo docker run --name arkserver --rm -it -d -v "/home/lgsm/:/home/lgsm" lgsm-docker bash# start the server
 $ docker run -d --name my-custom-server local/linuxgsm:$SERVERNAME 
 ```
 
@@ -178,7 +178,7 @@ These quirks are
 
 This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and server data installed under the home directory `/home/lgsm`
 
-## easy step
+## Easy step
 
 the script create a user name lgsm app path is /home/lgsm/
 
@@ -188,7 +188,7 @@ the script create a user name lgsm app path is /home/lgsm/
 - Edit some variable at the top of the lgsm.sh script
 - Execute lgsm.sh all you need is in this script
 
-## features to add
+## Features to add
 
 - Install script 
 - Multi-lgsm server type on one lgsm install
