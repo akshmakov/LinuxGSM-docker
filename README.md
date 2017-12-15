@@ -180,8 +180,16 @@ This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and se
 
 ## easy step
 
+the script create a user name lgsm app path is /home/lgsm/
+
 - Download the git repo git clone ...
 - Change permission to executable : chmod +x lgsm-build.sh && chmod +x lgsm.sh
 - Execute lgsm-build.sh
 - Edit some variable at the top of the lgsm.sh script
 - Execute lgsm.sh all you need is in this script
+
+## features to add
+
+- Install script 
+- Multi-lgsm server type on one lgsm install
+- Support all server type depency in function bash
