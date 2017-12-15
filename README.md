@@ -192,4 +192,4 @@ the script create a user name lgsm app path is /home/lgsm/
 
 - Install script to edit variable in script automaticaly
 - Multi-lgsm server type on one lgsm install
-- Support all server type depency in a function bash
+- Support all server type depency and port in a function bash
