@@ -12,7 +12,7 @@ Img="lgsm-docker"
 ## check if the container already running (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
 
-if [ "$status" != "true" ] && [ $1 != "stop" ]
+if [ "$status" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
 	sudo docker run --name $InstanceName --rm -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
