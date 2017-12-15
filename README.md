@@ -188,8 +188,8 @@ the script create a user name lgsm app path is /home/lgsm/
 - Edit some variable at the top of the lgsm.sh script
 - Execute lgsm.sh all you need is in this script
 
-## Features to add
+## TODO
 
-- Install script 
+- Install script to et variable in script automaticaly
 - Multi-lgsm server type on one lgsm install
-- Support all server type depency in function bash
+- Support all server type depency in a function bash
