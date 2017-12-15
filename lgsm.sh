@@ -3,11 +3,11 @@
 ## can be simplified.
 
 ## name of the docker process
-InstanceName="arkserver"
+InstanceName='arkserver'
 ## arkserver for me (it's the script name in the serveur directory)
-ServerType="arkserver"
+ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
-Img="lgsm-docker"
+Img='lgsm-docker'
 
 ## check if the container already running (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
@@ -15,7 +15,7 @@ status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev
 if [ "$status" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
-	sudo docker run --name $InstanceName --rm -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
+	sudo docker run --name $InstanceName  --hostname LGSM --rm -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
 elif [ "$status" == "true" ]
 then
 	echo "docker container already running, append command."
@@ -72,18 +72,19 @@ case $cmd in
 
         "conjob") ## need to be test.
             sudo docker exec $InstanceName crontab -l > tempcronfile
-	    sudo docker exec $InstanceName echo "0 5 * * *  /home/lgsm/$ServerType update > /dev/null 2>&1" > tempcronfile
+	    sudo docker exec $InstanceName echo "0 5 * * * su - root -C '/root/dockerbuild/LinuxGSM-docker/lgsm.sh update' >/dev/null 2>&1"
  	    sudo docker exec $InstanceName crontab tempcronfile && rm tempcronfile
             ;;
 
 	"attach")
+	    echo "dettach with ctrl+p & ctrl+q"
 	    sudo docker attach $InstanceName
 	    ;;
 
-	"command")
+	"command") ## not working. 1 hour of try
 	    echo "input the complete command to execute in virtual container"
-	    read -a $command
-	    sudo docker exec $InstanceName $command
+	    read -a test
+	    sudo docker exec $InstanceName $test
 	    ;;
 
         *)
