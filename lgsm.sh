@@ -15,7 +15,8 @@ status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev
 if [ "$status" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
-	sudo docker run --name $InstanceName  --hostname LGSM --rm -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
+	sudo docker rm $InstanceName 2> /dev/null
+	sudo docker run --name $InstanceName --restart always  --hostname LGSM -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
 elif [ "$status" == "true" ]
 then
 	echo "docker container already running, append command."
@@ -40,18 +41,24 @@ case $cmd in
 
         "start")
             sudo docker exec $InstanceName $ServerType start
+	    sleep 2
+	    sudo docker exec $InstanceName alert_discord.sh
             ;;
 
         "stop")
 	    if [ "$status" == "true" ]
 	    then
             	sudo docker exec $InstanceName $ServerType stop
+	        sudo docker exec $InstanceName alert_discord.sh stop
+	        sleep 4
 	    	sudo docker kill $InstanceName
 	    fi
             ;;
 
         "restart")
             sudo docker exec $InstanceName $ServerType restart
+	    sleep 2
+	    sudo docker exec $InstanceName alert_discord.sh restart
             ;;
 
         "console")
@@ -64,6 +71,8 @@ case $cmd in
 
         "update") ## update stop the server if is already running(lgsm script).
             sudo docker exec $InstanceName $ServerType update
+	    sleep 2
+	    sudo docker exec $InstanceName alert_discord.sh update
             ;;
 
         "backup")
