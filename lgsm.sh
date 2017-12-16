@@ -42,23 +42,21 @@ case $cmd in
         "start")
             sudo docker exec $InstanceName $ServerType start
 	    sleep 2
-	    sudo docker exec $InstanceName alert_discord.sh
+	    sudo docker exec $InstanceName alert_discord.sh start
             ;;
 
         "stop")
 	    if [ "$status" == "true" ]
 	    then
-            	sudo docker exec $InstanceName $ServerType stop
 	        sudo docker exec $InstanceName alert_discord.sh stop
-	        sleep 4
+            	sudo docker exec $InstanceName $ServerType stop
 	    	sudo docker kill $InstanceName
 	    fi
             ;;
 
         "restart")
-            sudo docker exec $InstanceName $ServerType restart
-	    sleep 2
 	    sudo docker exec $InstanceName alert_discord.sh restart
+            sudo docker exec $InstanceName $ServerType restart
             ;;
 
         "console")
@@ -70,9 +68,8 @@ case $cmd in
             ;;
 
         "update") ## update stop the server if is already running(lgsm script).
-            sudo docker exec $InstanceName $ServerType update
-	    sleep 2
 	    sudo docker exec $InstanceName alert_discord.sh update
+            sudo docker exec $InstanceName $ServerType update
             ;;
 
         "backup")
