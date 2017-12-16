@@ -5,7 +5,8 @@
 # Website: https://gameservermanagers.com
 # Description: Sends Discord alert.
 
-discordwebhook="https://discordapp.com/api/webhooks/391048323764584448/fACpwVm58eReQPLm9QdrzYnRYC8SDolq3A20xXLvb5G2Gk70rCGg4Vr9o3UKiygrmU46"
+# your webhook
+discordwebhook=""
 
 avatar="https://image.freepik.com/vector-gratis/fondo-pixelador-de-game-over_1051-1014.jpg"
 
@@ -60,7 +61,7 @@ json=$(cat <<EOF
                         },
                         {
                                 "name": "Server IP",
-                                "value": "[96.23.146.250:7777](https://www.gametracker.com/server_info/96.23.146.250:7777)"
+                                "value": "[yourip:7777](https://www.gametracker.com/server_info/yourip:7777)"
                         },
                         {
                                 "name": "État du server",
