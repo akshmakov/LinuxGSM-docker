@@ -16,7 +16,7 @@ if [ "$status" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
 	sudo docker rm $InstanceName 2> /dev/null
-	sudo docker run --name $InstanceName --restart always  --hostname LGSM -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
+	sudo docker run --name $InstanceName --restart always --net=host --hostname LGSM -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
 elif [ "$status" == "true" ]
 then
 	echo "docker container already running, append command."

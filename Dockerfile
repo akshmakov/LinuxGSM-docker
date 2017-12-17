@@ -58,7 +58,8 @@ RUN apt-get install -y \
  	cron \
        	procps \
  	locales \
-	nano
+	nano \
+	net-tools
 
 ENV LGSM_DOCKER_VERSION 17.11.0
 
