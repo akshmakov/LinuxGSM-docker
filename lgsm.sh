@@ -87,10 +87,8 @@ case $cmd in
 	    sudo docker attach $InstanceName
 	    ;;
 
-	"command") ## not working. 1 hour of try
-	    echo "input the complete command to execute in virtual container"
-	    read -a test
-	    sudo docker exec $InstanceName $test
+	"command")
+            sudo docker exec -it $InstanceName $2 $3 $4 $5
 	    ;;
 
         *)
