@@ -8,6 +8,8 @@ InstanceName='arkserver'
 ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
 Img='lgsm-docker'
+## current path; plz execute this script from it folder
+Path=`pwd`
 
 ## check if the container already running (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
@@ -28,7 +30,7 @@ if [ "$1" != "" ]
 then
        	cmd=$1
 else
-	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|attach|command|cronjob}"
+	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|attach|command}"
 	read -a cmd
 fi
 
@@ -76,11 +78,9 @@ case $cmd in
             sudo docker exec $InstanceName $ServerType backup
             ;;
 
-        "conjob") ## need to be test.
-            sudo docker exec $InstanceName crontab -l > tempcronfile
-	    sudo docker exec $InstanceName echo "0 5 * * * su - root -C '/root/dockerbuild/LinuxGSM-docker/lgsm.sh update' >/dev/null 2>&1"
- 	    sudo docker exec $InstanceName crontab tempcronfile && rm tempcronfile
-            ;;
+        #"conjob") ## as been tested but need a custom path ...
+	#    need to find a way to add this line in crontab of the main linux "* */3 * * * bash ${Path}/linuxgsm-docker.sh command bash check_version.sh >/dev/null 2>&1"
+        #    ;;
 
 	"attach")
 	    echo "dettach with ctrl+p & ctrl+q"
@@ -88,6 +88,7 @@ case $cmd in
 	    ;;
 
 	"command")
+	    # need to find a way to use all parameter after the first one, but work for now ...
             sudo docker exec -it $InstanceName $2 $3 $4 $5
 	    ;;
 
