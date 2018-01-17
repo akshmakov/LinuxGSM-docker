@@ -182,11 +182,13 @@ This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and se
 
 the script create a user name lgsm app path is /home/lgsm/
 
+PS: you need to have a lgsm user on the main linux host with the folder /home/lgsm; i use root user of the main linux system to build and use the script
+
 - Download the git repo git clone ...
-- Change permission to executable : chmod +x lgsm-build.sh && chmod +x lgsm.sh
+- Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
 - Execute linuxgsm-docker-build.sh
 - Edit some variable at the top of the linuxgsm-docker.sh script
-- Execute lgsm.sh all you need is in this script
+- Execute linuxgsm-docker.sh all you need is in this script
 
 ## TODO
 
