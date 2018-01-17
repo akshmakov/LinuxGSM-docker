@@ -72,7 +72,7 @@ ENV LC_ALL en_US.UTF-8
 ## lgsm.sh
 RUN wget -N --no-check-certificate https://gameservermanagers.com/dl/linuxgsm.sh
 
-## if you have a permission probleme, check uid gid with the command id of the real machine user lgsm
+## if you have a permission probleme, check uid gid with the command id of the main linux user lgsm
 ## you need to have the same guid and uid as your real machine storage/data folder
 ## for me, my real user uid is 1001 so i need to create a user for the virtual docker image with the same uid
 ## user config
