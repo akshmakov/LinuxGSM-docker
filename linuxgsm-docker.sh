@@ -30,7 +30,7 @@ if [ "$1" != "" ]
 then
        	cmd=$1
 else
-	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|attach|command}"
+	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|attach|command|install}"
 	read -a cmd
 fi
 
@@ -76,6 +76,10 @@ case $cmd in
 
         "backup")
             sudo docker exec $InstanceName $ServerType backup
+            ;;
+	    
+	"install")
+            sudo docker exec $InstanceName $ServerType install $2
             ;;
 
         #"conjob") ## as been tested but need a custom path ...
