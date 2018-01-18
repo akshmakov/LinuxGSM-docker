@@ -78,8 +78,8 @@ fn_command_sender(){
 		    ;;
 
 		*)
+		    echo "Parameter invalid, exit."
 		    exit 1
-
 	esac
 
 }
