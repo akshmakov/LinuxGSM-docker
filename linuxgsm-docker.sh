@@ -10,6 +10,10 @@ ServerType='arkserver'
 Img='lgsm-docker'
 ## current path; plz execute this script from it folder
 Path=`pwd`
+## Set the Network Used by docker
+network='host'
+## Set the hostname for the docker container
+hostname='LGSM'
 
 ## check if the container already running (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
@@ -59,10 +63,6 @@ fn_command_sender(){
 		    sudo docker exec $InstanceName $ServerType backup
 		    ;;
 
-		"install")
-		    sudo docker exec $InstanceName $ServerType install $2
-		    ;;
-
 		#"conjob") ## as been tested but need a custom path ...
 		#    need to find a way to add this line in crontab of the main linux "* */3 * * * bash ${Path}/linuxgsm-docker.sh command bash check_version.sh >/dev/null 2>&1"
 		#    ;;
@@ -89,7 +89,7 @@ if [ "$status" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
 	sudo docker rm $InstanceName 2> /dev/null
-	sudo docker run --name $InstanceName --restart always --net=host --hostname LGSM -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
+	sudo docker run --name $InstanceName --restart always --net=${network} --hostname ${hostname} -it -d -v "/home/lgsm/:/home/lgsm" $Img bash 2> /dev/null
 elif [ "$status" == "true" ]
 then
 	echo "docker container already running, append command."
