@@ -30,7 +30,11 @@ fn_discord_custom_sender(){
 
 }
 
-fn_command_sender(){
+fn_cmd_sender() {
+	
+}
+
+fn_command_support(){
 
 	case $cmd in
 		"install")
@@ -83,6 +87,14 @@ fn_command_sender(){
 		"backup")
 		    sudo docker exec ${InstanceName} ${ServerType} backup
 		    ;;
+		    
+		"details")
+		    sudo docker exec ${InstanceName} ${ServerType} details
+		    ;;
+		    
+		"alerts")
+		    sudo docker exec ${InstanceName} ${ServerType} alerts
+		    ;;
 
 		"conjob")
 		    crontab -l > CronTemp
@@ -125,11 +137,11 @@ fi
 if [ "${#}" > 0 ]
 then
        	cmd=$1
-	fn_command_sender ${cmd}
+	fn_command_support ${cmd}
 else
-	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|attach|command|install}"
+	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|details|alerts|cronjob|attach|command|install}"
 	read -a cmd
-	fn_command_sender ${cmd}
+	fn_command_support ${cmd}
 fi
 
 #sudo docker run --name arkserver --rm -it -d -v "/home/lgsm/:/home/lgsm" lgsm-docker bash $@
