@@ -97,7 +97,8 @@ else
 	echo "docker container not running."
 fi
 
-if [ "$1" != "" ]
+## check if we have a parameter
+if [ "${#}" > 0 ]
 then
        	cmd=$1
 	fn_command_sender $cmd
