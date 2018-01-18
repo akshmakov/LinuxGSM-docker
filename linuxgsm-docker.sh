@@ -14,9 +14,17 @@ Path=`pwd`
 network='host'
 ## Set the hostname for the docker container
 hostname='LGSM'
+## Set it to False if you don't have a discord custom script like me
+enable="True"
 
 ## check if the container already running (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
+
+fn_discord_custom_sender(){
+
+	
+
+}
 
 fn_command_sender(){
 
