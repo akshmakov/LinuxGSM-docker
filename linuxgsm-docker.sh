@@ -92,8 +92,8 @@ case $cmd in
 	    ;;
 
 	"command")
-	    # need to find a way to use all parameter after the first one, but work for now ...
-            sudo docker exec -it $InstanceName $2 $3 $4 $5
+	    ## Need to be test (take all parameter after the first one)
+            sudo docker exec -it $InstanceName ${@:2}
 	    ;;
 
         *)
