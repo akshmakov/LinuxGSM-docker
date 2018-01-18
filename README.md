@@ -192,6 +192,4 @@ PS: you need to have a lgsm user on the main linux host with the folder /home/lg
 
 ## TODO
 
-- Install script to edit variable in script automaticaly
-- Multi-lgsm server type on one lgsm install
-- Support all server type depency and default port in a function bash
+- Multi-lgsm server type support on one lgsm install
