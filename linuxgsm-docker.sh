@@ -32,7 +32,7 @@ fn_discord_custom_sender(){
 
 ## need to be test
 fn_exec_cmd_sender() {
-	sudo docker exec ${InstanceName} ${ServerType} ${cmd}
+	sudo docker exec ${InstanceName} ${ServerType} ${1}
 }
 
 fn_command_support(){
