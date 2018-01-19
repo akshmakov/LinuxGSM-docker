@@ -32,69 +32,74 @@ fn_discord_custom_sender(){
 
 ## need to be test
 fn_exec_cmd_sender(){
-	sudo docker exec ${InstanceName} ${ServerType} ${1}
+	if [ ${1} == "exec" ]
+	then
+		sudo docker ${1} ${InstanceName} ${ServerType} ${2} ${3}
+	else
+		sudo docker ${1} ${InstanceName}
+	fi
 }
 
 fn_command_support(){
 
 	case $cmd in
 		"install")
-		    if[ $2 != "" ]
+		    if [ $2 != "" ]
 		    then
 			read -a type
-			sudo docker exec ${InstanceName} ${ServerType} install ${type}
+			fn_exec_cmd_sender exec install ${type}
 		    else
 		    	echo "Missing parameter for the serveur name to install, showing server game list"
-		    	sudo docker exec ${InstanceName} ${ServerType} install
+		    	fn_exec_cmd_sender exec install
 		    fi
 		    ;;
 
 		"start")
-		    fn_exec_cmd_sender start
+		    fn_exec_cmd_sender exec start
 		    fn_discord_custom_sender ${cmd}
 		    ;;
 
 		"stop")
 		    if [ "$status" == "true" ]
 		    then
-			fn_exec_cmd_sender stop
+			fn_exec_cmd_sender exec stop
 			fn_discord_custom_sender ${cmd}
 			sudo docker kill ${InstanceName}
 		    fi
 		    ;;
 
 		"restart")
-		    fn_exec_cmd_sender restart
+		    fn_exec_cmd_sender exec restart
 		    fn_discord_custom_sender ${cmd}
 		    ;;
 		    
 		"update") ## update stop the server if is already running(lgsm script).
-		    sudo docker exec ${InstanceName} ${ServerType} update
+		    fn_exec_cmd_sender exec update
 		    fn_discord_custom_sender ${cmd}
 		    ;;
 
 		"console")
-		    fn_exec_cmd_sender console
+		    fn_exec_cmd_sender exec console
 		    ;;
 
 		"monitor")
-		    fn_exec_cmd_sender monitor
+		    fn_exec_cmd_sender exec monitor
 		    ;;
 		    
 		"validate")
-		    fn_exec_cmd_sender validate
+		    fn_exec_cmd_sender exec validate
 		    ;;
 
 		"backup")
-		    fn_exec_cmd_sender backup
+		    fn_exec_cmd_sender exec backup
 		    ;;
 		    
 		"details")
-		    fn_exec_cmd_sender details
+		    fn_exec_cmd_sender exec details
 		    ;;
 		    
 		"alerts")
-		    fn_exec_cmd_sender alerts
+		    fn_exec_cmd_sender exec alerts
 		    ;;
 
 		"conjob")
@@ -106,7 +111,7 @@ fn_command_support(){
 
 		"attach")
 		    echo "dettach with ctrl+p & ctrl+q"
-		    sudo docker attach ${InstanceName}
+		    fn_exec_cmd_sender attach
 		    ;;
 
 		"command")
