@@ -30,8 +30,9 @@ fn_discord_custom_sender(){
 
 }
 
-fn_cmd_sender() {
-	
+## need to be test
+fn_exec_cmd_sender() {
+	sudo docker exec ${InstanceName} ${ServerType} ${cmd}
 }
 
 fn_command_support(){
@@ -49,21 +50,21 @@ fn_command_support(){
 		    ;;
 
 		"start")
-		    sudo docker exec ${InstanceName} ${ServerType} start
+		    fn_exec_cmd_sender start
 		    fn_discord_custom_sender ${cmd}
 		    ;;
 
 		"stop")
 		    if [ "$status" == "true" ]
 		    then
-			sudo docker exec ${InstanceName} ${ServerType} stop
+			fn_exec_cmd_sender stop
 			fn_discord_custom_sender ${cmd}
 			sudo docker kill ${InstanceName}
 		    fi
 		    ;;
 
 		"restart")
-		    sudo docker exec ${InstanceName} ${ServerType} restart
+		    fn_exec_cmd_sender restart
 		    fn_discord_custom_sender ${cmd}
 		    ;;
 		    
@@ -73,27 +74,27 @@ fn_command_support(){
 		    ;;
 
 		"console")
-		    sudo docker exec ${InstanceName} ${ServerType} console
+		    fn_exec_cmd_sender console
 		    ;;
 
 		"monitor")
-		    sudo docker exec ${InstanceName} ${ServerType} monitor
+		    fn_exec_cmd_sender monitor
 		    ;;
 		    
 		"validate")
-		    sudo docker exec ${InstanceName} ${ServerType} validate
+		    fn_exec_cmd_sender validate
 		    ;;
 
 		"backup")
-		    sudo docker exec ${InstanceName} ${ServerType} backup
+		    fn_exec_cmd_sender backup
 		    ;;
 		    
 		"details")
-		    sudo docker exec ${InstanceName} ${ServerType} details
+		    fn_exec_cmd_sender details
 		    ;;
 		    
 		"alerts")
-		    sudo docker exec ${InstanceName} ${ServerType} alerts
+		    fn_exec_cmd_sender alerts
 		    ;;
 
 		"conjob")
