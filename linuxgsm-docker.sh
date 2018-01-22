@@ -2,9 +2,10 @@
 
 ## can be simplified.
 
-## name of the docker process
+## name of the docker container
 InstanceName='arkserver'
 ## arkserver for me (it's the script name in the serveur directory)
+# for you need to be 'linuxgsm.sh'
 ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
 Img='lgsm-docker'
