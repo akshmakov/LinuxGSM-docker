@@ -14,9 +14,12 @@ PS: I use root user of the main linux system to build and use the script
 
 - Download the git repo git clone ...
 - Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
+- Edit DockerFile and open the proper Ports for the server type you want to install (default is for ARK server)
 - Execute linuxgsm-docker-build.sh
 - Edit some variable at the top of the linuxgsm-docker.sh script
 - Execute linuxgsm-docker.sh all you need is in this script
+
+if you want to edit server config from main linux system you need to have lgsm user as the same uid than in docker for the user or the owner ship going to be diffrent in container and the main linux system get permission issue or need to chown it but you can't do that from the main linux system because the user for the chown is a other os...
 
 
 ## Image Tags
