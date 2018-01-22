@@ -19,8 +19,10 @@ Use root user of the main linux system to build and use the script
 - Edit some variable at the top of the linuxgsm-docker.sh script
 - Execute linuxgsm-docker.sh all you need is in this script
 
-if you want to edit server config from main linux system you need to have lgsm user as the same uid than in docker for the user or the owner ship going to be diffrent in container and the main linux system get permission issue or need to chown it but you can't do that from the main linux system because the user for the chown is a other os...
+if you want to edit server config from main linux system you need to have lgsm user as the same uid than in docker for the user or the owner ship going to be diffrent in container and the main linux system get permission issue or need to chown it but you can't do that from the main linux system because the user for the chown is on a other os...
 
+
+### After this line the documentation is out updated but most of it is usefull
 
 ## Image Tags
 
