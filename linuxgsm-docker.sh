@@ -17,17 +17,15 @@ Hostname='LGSM'
 ## Set it to False if you don't have a discord custom script like me
 DiscordNotifier="True"
 
-## check if the container already running (true or '')
+## check if the container already running; return (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
 
 fn_discord_custom_sender(){
-
 	if [ "${DiscordNotifier}" == "true" ]
 	then
 		sleep 2
 		sudo docker exec ${InstanceName} alert_discord.sh ${cmd}
 	fi
-
 }
 
 ## need to be test
@@ -127,6 +125,7 @@ fn_command_support(){
 }
 
 
+## check if the the container already running; if not start it if command is not Stop; 
 if [ "${status}" != "true" ] && [ "$1" != "stop" ]
 then
 	echo "docker container was not running. start it for you."
