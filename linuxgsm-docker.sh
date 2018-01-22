@@ -8,7 +8,7 @@ InstanceName='arkserver'
 ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
 Img='lgsm-docker'
-## current path; plz execute this script from it folder
+## current path; plz execute this script from it's folder
 Path=`pwd`
 ## Set the Network Used by docker
 Network='host'
