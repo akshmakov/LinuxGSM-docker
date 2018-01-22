@@ -10,7 +10,7 @@ ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
 Img='lgsm-docker'
 ## current path; plz execute this script from it's folder
-Path=`pwd`
+Path=$(pwd)
 ## Set the Network Used by docker
 Network='host'
 ## Set the hostname for the docker container
@@ -25,17 +25,17 @@ fn_discord_custom_sender(){
 	if [ "${DiscordNotifier}" == "true" ]
 	then
 		sleep 2
-		sudo docker exec ${InstanceName} alert_discord.sh ${cmd}
+		sudo docker exec ${InstanceName} alert_discord.sh "${cmd}"
 	fi
 }
 
 ## need to be test
 fn_exec_cmd_sender(){
-	if [ ${1} == "exec" ]
+	if [ "${1}" == "exec" ]
 	then
-		sudo docker ${1} ${InstanceName} ${ServerType} ${2} ${3}
+		sudo docker "${1}" ${InstanceName} ${ServerType} "${2}" "${3}"
 	else
-		sudo docker ${1} ${InstanceName}
+		sudo docker "${1}" ${InstanceName}
 	fi
 }
 
@@ -45,8 +45,8 @@ fn_command_support(){
 		"install")
 		    if [ "${2}" != "" ]
 		    then
-			read -a type
-			fn_exec_cmd_sender exec install ${type}
+			read -ar type
+			fn_exec_cmd_sender exec install "${type}"
 		    else
 		    	echo "Missing parameter for the serveur name to install, showing server game list"
 		    	fn_exec_cmd_sender exec install
@@ -55,26 +55,26 @@ fn_command_support(){
 
 		"start")
 		    fn_exec_cmd_sender exec start
-		    fn_discord_custom_sender ${cmd}
+		    fn_discord_custom_sender "${cmd}"
 		    ;;
 
 		"stop")
 		    if [ "$status" == "true" ]
 		    then
 			fn_exec_cmd_sender exec stop
-			fn_discord_custom_sender ${cmd}
+			fn_discord_custom_sender "${cmd}"
 			sudo docker kill ${InstanceName}
 		    fi
 		    ;;
 
 		"restart")
 		    fn_exec_cmd_sender exec restart
-		    fn_discord_custom_sender ${cmd}
+		    fn_discord_custom_sender "${cmd}"
 		    ;;
 		    
 		"update") ## update stop the server if is already running(lgsm script).
 		    fn_exec_cmd_sender exec update
-		    fn_discord_custom_sender ${cmd}
+		    fn_discord_custom_sender "${cmd}"
 		    ;;
 
 		"console")
@@ -115,7 +115,7 @@ fn_command_support(){
 
 		"command")
 		    ## Need to be test (take all parameter after the first one)
-		    sudo docker exec -it ${InstanceName} ${@:2}
+		    sudo docker exec -it ${InstanceName} "${@:2}"
 		    ;;
 
 		*)
@@ -140,14 +140,14 @@ else
 fi
 
 ## check if we have a parameter
-if [ "${#}" > 0 ]
+if [ "${#}" > "0" ]
 then
        	cmd=$1
-	fn_command_support ${cmd}
+	fn_command_support "${cmd}"
 else
 	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|details|alerts|cronjob|attach|command|install}"
 	read -a cmd
-	fn_command_support ${cmd}
+	fn_command_support "${cmd}"
 fi
 
 #sudo docker run --name arkserver --rm -it -d -v "/home/lgsm/:/home/lgsm" lgsm-docker bash $@
