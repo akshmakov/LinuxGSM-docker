@@ -8,13 +8,13 @@ Run Game Servers in Docker, multiplex multiple LinuxGSM deployments easily by ta
 
 ## Easy step
 
-the script create a user name lgsm with a home directory path /home/lgsm/
+The script create a user name lgsm with a home directory path /home/lgsm/
 
-PS: I use root user of the main linux system to build and use the script
+Use root user of the main linux system to build and use the script
 
 - Download the git repo git clone ...
 - Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
-- Edit DockerFile and open the proper Ports for the server type you want to install (default is for ARK server)
+- Edit DockerFile and open the proper Ports for the server type you want to install(default steam base 777[7-8], 2015...)
 - Execute linuxgsm-docker-build.sh
 - Edit some variable at the top of the linuxgsm-docker.sh script
 - Execute linuxgsm-docker.sh all you need is in this script
