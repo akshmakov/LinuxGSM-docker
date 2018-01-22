@@ -6,13 +6,26 @@ LABEL maintainer="jkljkl1197 on github"
 ENV DEBIAN_FRONTEND noninteractive
 
 ## Ports Use can use -p port:port also
-EXPOSE  27015:27015 7777:7777 7778:7778 27020:27020 443:443 80:80 \
-	27015:27015/udp 7777:7777/udp 7778:7778/udp 27020:27020/udp 443:443/udp 80:80/udp
+#I open bolth tcp and udp but udp in not all time necessary.
+#Line 1 commun ports steam tcp
+#Line 2 commun ports steam udp
+#Line 3 Rcon and Web port for some server update agent tcp
+#Line 4 Rcon and Web port for some server update agent udp
+EXPOSE  27015:27015 7777:7777 7778:7778 \
+	27015:27015/udp 7777:7777/udp 7778:7778/udp \
+	27020:27020 443:443 80:80 \
+	27020:27020/udp 443:443/udp 80:80/udp
 
-## Base System
+## Base System package
+# install apt-utils before because some installer deb script need it
 RUN dpkg --add-architecture i386 && \
 	apt-get update -y && \
 	apt-get install -y --no-install-recommends apt-utils
+## Tools (Optional)
+#add packet you want to add here.
+	apt-get install - y \
+	nano \
+	net-tools
 ## Dependency
 RUN apt-get install -y \
 	binutils \
@@ -55,21 +68,19 @@ RUN apt-get install -y \
 	libgtk2.0-0:i386 \
 	libdbus-glib-1-2:i386 \
 	libnm-glib-dev:i386 \
- 	cron \
        	procps \
- 	locales \
-	nano \
-	net-tools
+	locales \
+	cron
 
 ENV LGSM_DOCKER_VERSION 17.11.0
 
-## UTF-8 Probleme ...
+## UTF-8 Probleme tmux...
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-## lgsm.sh
+## linuxgsm.sh
 RUN wget -N --no-check-certificate https://gameservermanagers.com/dl/linuxgsm.sh
 
 ## if you have a permission probleme, check uid gid with the command id of the main linux user lgsm
@@ -80,7 +91,7 @@ RUN adduser --disabled-password --gecos "" --uid 1001 lgsm && \
     chown lgsm:lgsm /linuxgsm.sh && \
     chmod +x /linuxgsm.sh && \
     cp /linuxgsm.sh /home/lgsm/linuxgsm.sh && \
-    usermod -G tty lgsm #solve ark script error
+    usermod -G tty lgsm #solve tmux script error
 
 USER lgsm
 WORKDIR /home/lgsm
