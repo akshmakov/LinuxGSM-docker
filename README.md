@@ -6,6 +6,19 @@ Dockerhub https://hub.docker.com/r/akshmakov/linuxgsm/
 
 Run Game Servers in Docker, multiplex multiple LinuxGSM deployments easily by taking advantage of Dockers port mapping.
 
+## Easy step
+
+the script create a user name lgsm with a home directory path /home/lgsm/
+
+PS: I use root user of the main linux system to build and use the script
+
+- Download the git repo git clone ...
+- Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
+- Execute linuxgsm-docker-build.sh
+- Edit some variable at the top of the linuxgsm-docker.sh script
+- Execute linuxgsm-docker.sh all you need is in this script
+
+
 ## Image Tags
 
 - `latest` `base` - base image with linuxgsm.sh script and user setup
@@ -164,7 +177,7 @@ $ docker-compose stop q2server
 
 ## Container Overview
 
-`linuxgsm.sh` script is particularly picky about paths and does things a little different from a typical daemon.
+`linuxgsm-docker.sh` script is particularly picky about paths and does things a little different from a typical daemon.
 
 In particular this docker images seeks to encapsulate LinuxGSM exactly as it is, to allow for easy transition from non-docker based deployments
 
@@ -176,20 +189,4 @@ These quirks are
 - Script runs server in a tmux session (Difficult to attach to output)
 
 
-This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and server data installed under the home directory `/home/lgsm`
-
-## Easy step
-
-the script create a user name lgsm app path is /home/lgsm/
-
-PS: you need to have a lgsm user on the main linux host with the folder /home/lgsm; i use root user of the main linux system to build and use the script
-
-- Download the git repo git clone ...
-- Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
-- Execute linuxgsm-docker-build.sh
-- Edit some variable at the top of the linuxgsm-docker.sh script
-- Execute linuxgsm-docker.sh all you need is in this script
-
-## TODO
-
-- Multi-lgsm server type support on one lgsm install
+This Container runs `linuxgsm-docker.sh`  under a generic user `lgsm` and script and server data installed under the home directory `/home/lgsm`
