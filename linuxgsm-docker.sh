@@ -43,7 +43,7 @@ fn_command_support(){
 
 	case $cmd in
 		"install")
-		    if [ $2 != "" ]
+		    if [ "${2}" != "" ]
 		    then
 			read -a type
 			fn_exec_cmd_sender exec install ${type}
