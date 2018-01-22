@@ -20,10 +20,11 @@ EXPOSE  27015:27015 7777:7777 7778:7778 \
 # install apt-utils before because some installer deb script need it
 RUN dpkg --add-architecture i386 && \
 	apt-get update -y && \
+	apt-get upgrade -y && \
 	apt-get install -y --no-install-recommends apt-utils
 ## Tools (Optional)
 #add packet you want to add here.
-	apt-get install - y \
+RUN apt-get install -y \
 	nano \
 	net-tools
 ## Dependency
@@ -68,6 +69,8 @@ RUN apt-get install -y \
 	libgtk2.0-0:i386 \
 	libdbus-glib-1-2:i386 \
 	libnm-glib-dev:i386 \
+	apt-transport-https \
+	ca-certificates \
        	procps \
 	locales \
 	cron
