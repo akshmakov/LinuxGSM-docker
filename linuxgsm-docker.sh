@@ -5,7 +5,7 @@
 ## name of the docker container
 InstanceName='arkserver'
 ## arkserver for me (it's the script name in the serveur directory)
-# for you need to be 'linuxgsm.sh'
+# for you need to be the server type name of the lgsm script
 ServerType='arkserver'
 ## Image name to run (i have build with the lgsm-build.sh)
 Img='lgsm-docker'
@@ -16,7 +16,7 @@ Network='host'
 ## Set the hostname for the docker container
 Hostname='LGSM'
 ## Set it to False if you don't have a discord custom script like me
-DiscordNotifier="True"
+DiscordNotifier="False"
 
 ## check if the container already running; return (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
@@ -33,7 +33,12 @@ fn_discord_custom_sender(){
 fn_exec_cmd_sender(){
 	if [ "${1}" == "exec" ]
 	then
-		sudo docker "${1}" ${InstanceName} ${ServerType} "${2}" "${3}"
+		if [ "${2}" == "install" ]
+		then
+			sudo docker "${1}" ${InstanceName} linuxgsm.sh "${2}" "${3}"
+		else
+			sudo docker "${1}" ${InstanceName} ${ServerType} "${2}" "${3}"
+		fi
 	else
 		sudo docker "${1}" ${InstanceName}
 	fi
@@ -41,15 +46,17 @@ fn_exec_cmd_sender(){
 
 fn_command_support(){
 
-	case $cmd in
+	case ${cmd} in
 		"install")
 		    if [ "${2}" != "" ]
 		    then
-			read -ar type
-			fn_exec_cmd_sender exec install "${type}"
+			fn_exec_cmd_sender exec install "${2}"
 		    else
 		    	echo "Missing parameter for the serveur name to install, showing server game list"
 		    	fn_exec_cmd_sender exec install
+			#echo "enter the server name; ctrl+c to cancel"
+			#read -ar type
+			#fn_exec_cmd_sender exec install "${type}"
 		    fi
 		    ;;
 
@@ -140,14 +147,14 @@ else
 fi
 
 ## check if we have a parameter
-if [ "${#}" > "0" ]
+if [ "${#}" -gt 0 ]
 then
-       	cmd=$1
-	fn_command_support "${cmd}"
+       	cmd=${1}
+	fn_command_support "${cmd}" "${2}"
 else
 	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|details|alerts|cronjob|attach|command|install}"
-	read -a cmd
-	fn_command_support "${cmd}"
+	read -ar cmd
+	fn_command_support "${cmd}" "${2}"
 fi
 
 #sudo docker run --name arkserver --rm -it -d -v "/home/lgsm/:/home/lgsm" lgsm-docker bash $@
