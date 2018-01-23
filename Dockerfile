@@ -3,7 +3,7 @@ FROM debian:stable
 ENV LGSM_DOCKER_IMAGE LinuxGameServerManager
 LABEL maintainer="jkljkl1197 on github"
 
-ENV DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND="noninteractive"
 
 ## Ports Use can use -p port:port also
 #I open bolth tcp and udp but udp in not all time necessary.
