@@ -84,7 +84,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 ## linuxgsm.sh
-RUN wget -N --no-check-certificate https://gameservermanagers.com/dl/linuxgsm.sh
+RUN wget -N --no-check-certificate https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/linuxgsm.sh
 
 ## if you have a permission probleme, check uid gid with the command id of the main linux user lgsm
 ## you need to have the same guid and uid as your real machine storage/data folder
