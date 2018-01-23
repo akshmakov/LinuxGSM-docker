@@ -35,7 +35,7 @@ fn_exec_cmd_sender(){
 	then
 		if [ "${2}" == "install" ]
 		then
-			sudo docker "${1}" ${InstanceName} linuxgsm.sh "${2}" "${3}"
+			sudo docker "${1}" ${InstanceName} bash /home/lgsm/linuxgsm.sh auto-install "${3}"
 		else
 			sudo docker "${1}" ${InstanceName} ${ServerType} "${2}" "${3}"
 		fi
@@ -48,16 +48,10 @@ fn_command_support(){
 
 	case ${cmd} in
 		"install")
-		    if [ "${2}" != "" ]
-		    then
-			fn_exec_cmd_sender exec install "${2}"
-		    else
-		    	echo "Missing parameter for the serveur name to install, showing server game list"
-		    	fn_exec_cmd_sender exec install
-			#echo "enter the server name; ctrl+c to cancel"
-			#read -ar type
-			#fn_exec_cmd_sender exec install "${type}"
-		    fi
+		    sudo docker exec ${InstanceName} bash /home/lgsm/linuxgsm.sh install
+		    echo "enter the server number; ctrl+c to cancel"
+		    read -ar type
+		    fn_exec_cmd_sender exec install "${type}"
 		    ;;
 
 		"start")
