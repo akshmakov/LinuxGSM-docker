@@ -16,7 +16,7 @@ Network='host'
 ## Set the hostname for the docker container
 Hostname='LGSM'
 ## Set it to False if you don't have a discord custom script like me
-DiscordNotifier="False"
+DiscordNotifier="false"
 
 ## check if the container already running; return (true or '')
 status=$(sudo docker inspect --format="{{.State.Running}}" $InstanceName 2> /dev/null)
@@ -35,7 +35,7 @@ fn_exec_cmd_sender(){
 	then
 		if [ "${2}" == "install" ]
 		then
-			sudo docker "${1}" ${InstanceName} bash /home/lgsm/linuxgsm.sh auto-install "${3}"
+			sudo docker "${1}" ${InstanceName} bash /home/lgsm/linuxgsm.sh "${3}"
 		else
 			sudo docker "${1}" ${InstanceName} ${ServerType} "${2}" "${3}"
 		fi
@@ -48,10 +48,16 @@ fn_command_support(){
 
 	case ${cmd} in
 		"install")
-		    sudo docker exec ${InstanceName} bash /home/lgsm/linuxgsm.sh install
-		    echo "enter the server number; ctrl+c to cancel"
-		    read -ar type
-		    fn_exec_cmd_sender exec install "${type}"
+		    if [ "${3}" != "" ]
+		    then
+		    	fn_exec_cmd_sender exec install "${3}"
+		    else
+		    	# Get server List name
+		    	sudo docker exec ${InstanceName} bash /home/lgsm/linuxgsm.sh install
+			echo "enter the server name; ctrl+c to cancel"
+			read -a type
+			fn_exec_cmd_sender exec install "${type}"
+		    fi
 		    ;;
 
 		"start")
@@ -147,7 +153,7 @@ then
 	fn_command_support "${cmd}" "${2}"
 else
 	echo $"Usage: $0 {start|stop|restart|console|monitor|update|backup|details|alerts|cronjob|attach|command|install}"
-	read -ar cmd
+	read -a cmd
 	fn_command_support "${cmd}" "${2}"
 fi
 
