@@ -70,7 +70,6 @@ RUN apt-get install -y \
 	libdbus-glib-1-2:i386 \
 	libnm-glib-dev:i386 \
 	apt-transport-https \
-	ca-certificates \
        	procps \
 	locales \
 	cron
