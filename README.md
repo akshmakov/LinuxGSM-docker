@@ -6,6 +6,24 @@ Dockerhub https://hub.docker.com/r/akshmakov/linuxgsm/
 
 Run Game Servers in Docker, multiplex multiple LinuxGSM deployments easily by taking advantage of Dockers port mapping.
 
+## Easy step
+
+The script create a user name lgsm with a home directory path /home/lgsm/
+
+Use root user of the main linux system to build and use the script
+
+- Download the git repo git clone ...
+- Change permission to executable : chmod +x linuxgsm-docker-build.sh && chmod +x linuxgsm-docker.sh
+- Edit DockerFile and open the proper Ports for the server type you want to install(default steam base 777[7-8], 2015...)
+- Execute linuxgsm-docker-build.sh
+- Edit some variable at the top of the linuxgsm-docker.sh script
+- Execute linuxgsm-docker.sh all you need is in this script
+
+if you want to edit server config from main linux system you need to have lgsm user as the same uid than in docker for the user or the owner ship going to be diffrent in container and the main linux system get permission issue or need to chown it but you can't do that from the main linux system because the user for the chown is on a other os...
+
+
+### After this line the documentation is out updated but most of it is usefull
+
 ## Image Tags
 
 - `latest` `base` - base image with linuxgsm.sh script and user setup
@@ -96,7 +114,7 @@ then any extended image may be run as such
 ```
 # build the custom image
 $ docker build -tag local/linuxgsm:$SERVERNAME .
-# start the server
+sudo docker run --name arkserver --rm -it -d -v "/home/lgsm/:/home/lgsm" lgsm-docker bash# start the server
 $ docker run -d --name my-custom-server local/linuxgsm:$SERVERNAME 
 ```
 
@@ -164,7 +182,7 @@ $ docker-compose stop q2server
 
 ## Container Overview
 
-`linuxgsm.sh` script is particularly picky about paths and does things a little different from a typical daemon.
+`linuxgsm-docker.sh` script is particularly picky about paths and does things a little different from a typical daemon.
 
 In particular this docker images seeks to encapsulate LinuxGSM exactly as it is, to allow for easy transition from non-docker based deployments
 
@@ -176,7 +194,4 @@ These quirks are
 - Script runs server in a tmux session (Difficult to attach to output)
 
 
-This Container runs `linuxgsm.sh`  under a generic user `lgsm` and script and server data installed under the home directory `/home/lgsm`
-
-
-
+This Container runs `linuxgsm-docker.sh`  under a generic user `lgsm` and script and server data installed under the home directory `/home/lgsm`

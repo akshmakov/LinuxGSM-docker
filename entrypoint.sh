@@ -31,6 +31,4 @@ else
     tmux set -g status off && tmux attach 2> /dev/null
 fi
 
-
-
 exit 0
